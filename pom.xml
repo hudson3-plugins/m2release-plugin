@@ -1,0 +1,168 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.hudsonci.plugins</groupId>
+    <artifactId>m2release</artifactId>
+    <packaging>hpi</packaging>
+    <version>0.10.0-h-1-SNAPSHOT</version>
+
+    <parent>
+        <groupId>org.eclipse.hudson.plugins</groupId>
+        <artifactId>hudson-plugin-parent</artifactId>    
+        <version>3.0.0-RC2</version>
+    </parent>
+
+    <name>Hudson Maven Release Plugin</name>
+	
+    <description>
+        This plugin allows you to perform releases using the maven-release-plugin from Hudson to a repository.
+    </description>
+	
+    <url>http://wiki.hudson-ci.org/display/HUDSON/M2+Release+Plugin</url>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.test.version>3.0.2</maven.test.version>
+    </properties>
+
+    <developers>
+        <developer>
+            <id>wjprakash</id>
+            <name>Winston Prakash</name>
+            <email>winston.prakash@gmail.com</email>
+            <roles>
+                <role>
+                    Maintainer
+                </role>
+            </roles>
+        </developer>
+        <developer>
+            <id>teilo</id>
+            <name>James Nord</name>
+        </developer>
+        <developer>
+            <id>m68k</id>
+            <name>Christian Slama</name>
+        </developer>
+        <developer>
+            <id>imod</id>
+            <name>Dominik Bartholdi</name>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/hudson3-plugins/m2release-plugin.git</connection>
+        <developerConnection>scm:git:https://github.com/hudson3-plugins/m2release-plugin.git</developerConnection>
+        <url>https://github.com/hudson3-plugins/m2release-plugin/</url>
+    </scm>
+
+    <licenses>
+        <license>
+            <name>MIT</name>
+            <url>https://github.com/jenkinsci/m2release-plugin/blob/master/LICENCE.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <dependencies>
+         
+        <dependency>
+            <groupId>org.hudsonci.plugins</groupId>
+            <artifactId>maven-plugin</artifactId>
+            <version>2.2.1</version>
+            <scope>compile</scope>
+            <optional>true</optional>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.apache.maven.release</groupId>
+            <artifactId>maven-release-manager</artifactId>
+            <version>2.1</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>maven-project</artifactId>
+                    <groupId>org.apache.maven</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.hudsonci.plugins</groupId>
+            <artifactId>dashboard-view</artifactId>
+            <version>2.3-h-1</version>
+            <optional>true</optional>
+        </dependency>
+       
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-core</artifactId>
+            <version>${maven.test.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-artifact</artifactId>
+            <version>${maven.test.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-model</artifactId>
+            <version>${maven.test.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-settings</artifactId>
+            <version>${maven.test.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+   
+    <build>
+        <pluginManagement>
+            <plugins>
+                <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+                <plugin>
+                    <groupId>org.eclipse.m2e</groupId>
+                    <artifactId>lifecycle-mapping</artifactId>
+                    <version>1.0.0</version>
+                    <configuration>
+                        <lifecycleMappingMetadata>
+                            <pluginExecutions>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>
+                                            org.jenkins-ci.tools
+                                        </groupId>
+                                        <artifactId>
+                                            maven-hpi-plugin
+                                        </artifactId>
+                                        <versionRange>
+                                            [1.74,)
+                                        </versionRange>
+                                        <goals>
+                                            <goal>insert-test</goal>
+                                            <goal>validate</goal>
+                                            <goal>test-hpl</goal>
+                                            <goal>
+                                                resolve-test-dependencies
+                                            </goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore />
+                                    </action>
+                                </pluginExecution>
+                            </pluginExecutions>
+                        </lifecycleMappingMetadata>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+</project>  
+
