@@ -40,6 +40,7 @@ import hudson.model.Descriptor;
 import hudson.model.Hudson;
 import hudson.model.Item;
 import hudson.model.Run;
+import hudson.security.AccessDeniedException2;
 import hudson.security.Permission;
 import hudson.security.PermissionGroup;
 import hudson.tasks.BuildWrapper;
@@ -327,12 +328,24 @@ public class M2ReleaseBuildWrapper extends BuildWrapper {
 
 
 	public static boolean hasReleasePermission(@SuppressWarnings("rawtypes") AbstractProject job) {
+            if (Hudson.getInstance().isTeamManagementEnabled()){
+                return job.hasPermission(Item.CREATE) || job.hasPermission(Item.BUILD);
+            }else{
 		return job.hasPermission(DescriptorImpl.CREATE_RELEASE);
+            }
 	}
 
 
 	public static void checkReleasePermission(@SuppressWarnings("rawtypes") AbstractProject job) {
+            if (Hudson.getInstance().isTeamManagementEnabled()){
+                try {
+                    job.checkPermission(Item.CREATE);
+                } catch (AccessDeniedException2 ex) {
+                    job.checkPermission(Item.BUILD);
+                }
+            }else{
 		job.checkPermission(DescriptorImpl.CREATE_RELEASE);
+            }
 	}
 
 	public String getReleaseEnvVar() {
