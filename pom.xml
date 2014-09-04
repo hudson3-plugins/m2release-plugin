@@ -10,7 +10,7 @@
     <groupId>org.hudsonci.plugins</groupId>
     <artifactId>m2release</artifactId>
     <packaging>hpi</packaging>
-    <version>0.10.0-h-2-SNAPSHOT</version>
+    <version>0.10.0-h-2</version>
 
     <name>Hudson Maven Release Plugin</name>
 	
